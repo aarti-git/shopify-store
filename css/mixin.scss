@@ -1,0 +1,5 @@
+@mixin above($port: '') {
+    @media (min-width: map-get($viewports, $port)) {
+        @content
+    }
+}

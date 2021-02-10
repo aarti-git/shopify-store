@@ -1,0 +1,415 @@
+@import "./font.css";
+@import "./grid.scss";
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: "Roboto";
+    color: #282c3f;
+}
+body {
+  a{
+   text-decoration: none;
+    color: inherit;
+  }
+  
+  ul {
+    list-style: none;
+  }
+}
+
+.add-flex{
+  display: flex;
+}
+.space-between{
+  justify-content: space-between;
+}
+.font{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.tittle{
+  font-size: 13px;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+  @include above("md"){
+    font-size: 22px;
+  }
+}
+// header css
+.header{
+  height: 60px;
+  box-shadow: 0 2px 10px #e7e7e7;
+  display: flex;
+  align-items: center;
+}
+.desktop-navbar{
+    display: flex;
+    align-items: center;
+}
+.menu-bar-list {
+  padding: 15px;
+}
+.menu-bar-list li:hover {
+  color: #ed1c24;
+}
+.menu-bar-list li {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 22px 0;
+  color: #d0caca;
+}
+
+// .divWrapperPadding{
+//   padding: 9px 0;
+// }
+
+.app-logo-name {
+  display: flex;
+}
+.app-logo {
+  margin-left: 10px;
+  display: flex;
+  align-items: flex-end;
+  @include above("md") {
+    margin-left: 0px;
+  }
+}
+.logo-font {
+  height: 23px;
+  width: 23px;
+  color: #ed1c24;
+  @include above("md") {
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+  }
+}
+
+.app-logo-name h3 {
+  align-self: center;
+  font-weight: 300;
+  text-transform: capitalize;
+  font-size: 24px;
+  @include above("md") {
+    font-size: 28px;
+  }
+}
+
+.app-logo-name span {
+  color: #ed1c24;
+  font-weight: 400;
+}
+
+// .app-logo{
+//   display: flex;
+// }
+.logo-img{
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  align-self: center;
+}
+.list-wrapper {
+  display: none;
+  @include above("md") {
+      display: block;
+      margin-right: auto;
+      align-self: center;
+      text-transform: capitalize;
+      margin-left: 10px;
+    }
+    @include above("lg") {
+      margin-left: 35px;
+    }
+  }
+  
+  .header-list {
+      position: relative;
+      display: flex;
+      font-size: 11px;
+      align-items: center;
+      font-weight: 500;
+      @include above("lg") {
+        font-size: 14px;
+      }
+    }
+   
+  .header-list a {
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+  }
+  .header-list li:hover {
+    color: #a5a5a5;
+  }
+  .header-list li {
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    @include above("md") {
+      padding: 10px;
+    }
+    @include above("lg") {
+      padding: 20px;
+    }
+  }
+  .outfit-list-tittle{
+    color: #ee5f73;
+    font-weight: bold !important;
+  }
+  .list-wrapper >ul >li:hover .outfit-list {
+    display: block;
+  }
+  .outfit-list{
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    padding: 20px 10px;
+    z-index: 1;
+    background: white;
+  }
+  .outfit-list ul li{
+    padding: 7px;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  .maltipal-menu-list{
+    display: flex;
+  }
+.menu-ul-1{
+  padding: 0 20px;
+}
+.menu-ul-1{
+  padding: 0 20px;
+  color: #696e79;
+}
+.women-outfit-list{
+  left: 50px;
+}
+.kids-outfit-list{
+  left: 150px;
+}
+// .search-input{
+//   display: none;
+//   align-self: center;
+//   @include above("md"){
+//     display: block;
+//   }
+// }
+// .search-input input{
+  // width: 400px;
+  // height: 40px;
+  // padding: 2px 15px;
+  // border-radius: 2px;
+  // color: #696e79;
+  // background: #f5f5f6;
+// }
+// mobileSearch-bar start
+.mobile-search-parent{
+  display: flex;
+  justify-content: center;
+  @include above("md") {
+    display: none;
+  }
+}
+// mobileSearch-bar end
+.search-bar:hover .search-remove{
+  display: block;
+}
+.search-bar {
+  display: none;
+  width: 100%;
+  @include above("md") {
+    display: block !important;
+    background: #f5f5f6;
+    height: 40px;
+    border-radius: 5px;
+    position: relative;
+  }
+  @include above("lg") {
+    width: 380px;
+  }
+}
+.search-wrapper{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.search-remove{
+  display: none;
+  position: absolute;
+  right: 7px;
+  right: 10px;
+  top: 10px;
+  color: #d2d0d1;
+  cursor: pointer;
+}
+.mobile-search-removeBtn{
+  position: absolute;
+  right: 7px;
+  right: 10px;
+  top: 10px;
+  color: #d2d0d1;
+  cursor: pointer;
+}
+.menu-bar-svg {
+  align-self: center;
+  display: flex;
+  // display: block;
+  @include above("lg") {
+    display: none;
+  }
+}
+.search-font {
+  width: 15px;
+  height: 15px;
+  margin: 0px 7px;
+  align-self: center;
+}
+.search-parent{
+  width: 100%;
+}
+#searchBarInput {
+  width: 300px;
+  height: 40px;
+  padding: 2px 15px;
+  border-radius: 2px;
+  color: #696e79;
+  background: #f5f5f6;
+  outline: none;
+  text-transform: capitalize;
+}
+.searchResult-parent{
+  overflow: hidden;
+}
+.searchResultH{
+  font-size: 14px;
+  text-transform: uppercase;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+// .trackListResult{
+//   margin-bottom: 30px
+// }
+.searchResult{
+  width: 100%;
+  background-color: #21252d;
+  max-height: 400px;
+  z-index: 2;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  overflow: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
+  border-bottom: 2px solid #ed1c24;
+  @include above("md"){
+    width: 500px;
+  }
+}
+// .search-img-overlay-wrapper{
+  
+// }
+.search-item-name-div{
+  text-align: center;
+  margin:10px 0 ;
+  font-weight: 300;
+  font-size: 12px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.categaries-wrapper{
+  margin: 50px 0;
+}
+.categaries-list{
+  display: flex;
+}
+.categaries-parent ,
+.trending-parent{
+  width: 100%;
+}
+.categaries-img{
+  width: 100%;
+  vertical-align: middle;
+}
+
+// traindding
+.trending-wrapper{
+  margin: 50px 0;
+}
+.trending-list{
+  display: flex;
+}
+// .trending-parent {
+//   // padding: 5px 15px;
+// }
+.trending-img{
+  width: 100%;
+  padding: 20px 0;
+}
+// footer
+.footer-parent{
+  font-weight: 300;
+  padding: 30px 0 ;
+  border-bottom: 1px solid gainsboro;
+}
+.footer-sections{
+  width: 20%;
+  padding: 0 20px;
+}
+.footer-list-tittle{
+  font-weight: 400;
+  color: black;
+  display: block;
+  margin-bottom: 20px;
+}
+.footer-sections li{
+  font-size: 15px;
+  font-weight: 300;
+}
+.footer-imgs{
+  width: 100px;
+}
+.best-about-us span{
+  font-size: 15px;
+  font-weight: 300;
+}
+.footer{
+  background-color:#f8f8f8 ;
+  width: 100%;
+  padding: 50px 0 0;
+}
+.footerUL,
+.footer p {
+  font-weight: 300;
+  font-size: 14px;
+  text-align: justify;
+}
+.company-address p{
+  width: 250px;
+  font-size: 15px;
+  font-weight: 300;
+  margin: 8px 0;
+}
+.company-address {
+  padding-bottom: 50px;
+}
+.contact{
+  float: right;
+ }
+.contact span{
+  display: block;
+}

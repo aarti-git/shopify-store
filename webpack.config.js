@@ -29,14 +29,11 @@ module.exports = {
         test: /\.s[ac]ss/i,
         use: ["style-loader", "css-loader", "sass-loader", ],
       },
-      // {
-      //   test: /\.css$/i,
-      //   use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      // },
       {
         test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
         type: "asset/resource",
       },
+      // fonts
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: "asset/resource",
@@ -45,22 +42,12 @@ module.exports = {
 				test: /\.html$/i,
 				use: ["html-loader"]
 			},
-      {
-        test: /\.svg$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 10000,
-            },
-          },
-        ],
-      },
     ],
   },
 
   devServer: {
     contentBase: path.resolve(__dirname, "./dist"),
+    historyApiFallback: true,
     port: 3000,
   },
 

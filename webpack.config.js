@@ -16,6 +16,15 @@ module.exports = {
     filename: '[name].bundle.js',
   },
 
+  resolve: {
+    alias: {
+			"@js": path.resolve(__dirname, "./js"),
+			"@temp": path.resolve(__dirname, "./templates"),
+      "@router": path.resolve(__dirname, "./router"),
+      // "@img": path.resolve(__dirname, "./img"),
+    },
+  },
+
   // optimization: {
   //   splitChunks: {
   //     chunks: 'all',
@@ -40,7 +49,9 @@ module.exports = {
 			},
 			{
 				test: /\.html$/i,
-				use: ["html-loader"]
+				use: ["html-loader", {
+          loader: path.resolve(__dirname, './js/view-loader.js')
+        }]
 			},
     ],
   },
@@ -49,13 +60,6 @@ module.exports = {
     contentBase: path.resolve(__dirname, "./dist"),
     historyApiFallback: true,
     port: 3000,
-  },
-
-  resolve: {
-    alias: {
-			"@js": path.resolve(__dirname, "./js"),
-			"@temp": path.resolve(__dirname, "./templates"),
-    },
   },
 
   plugins: [

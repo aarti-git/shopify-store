@@ -1,6 +1,8 @@
+import { setupLink } from '@js/utils.js'
 import popup from'@js/popup.js'
 const layout = {
-  init: function () {
+  init: function ($view) {
+		popup.init();
 	  	var _this = this;
 		// mobile menu popup open
 		const MobileMenuBar = document.querySelector(".menu-bar-svg");
@@ -13,6 +15,8 @@ const layout = {
 		MobileMenuRemove.addEventListener("click",function() {
 			_this.mobilePopupRemove();
 		})
+
+		setupLink($view)
 	},
 	mobilePopup:function(){
 		popup.open(".menu-bar-overlay");

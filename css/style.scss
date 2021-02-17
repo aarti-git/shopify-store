@@ -57,8 +57,8 @@ body {
   justify-content: space-between;
 }
 .font{
-    width: 15px;
-    height: 15px;
+    width: 17px;
+    height: 17px;
     cursor: pointer;
     align-self: center;
 }
@@ -421,6 +421,19 @@ body {
 .categaries-parent ,
 .trending-parent{
   width: 100%;
+  position: relative;
+}
+.collection-name{
+  position: absolute;
+  bottom: 35px;
+  left: 50px;
+  font-size: 23px;
+  background-color: white;
+  @include above("md"){
+    bottom: 50px;
+    left: 70px;
+    font-size: 30px;
+  }
 }
 .categaries-img{
   width: 100%;
@@ -499,4 +512,117 @@ body {
  }
 .contact span{
   display: block;
+}
+// product page
+.product-Link-steps{
+  margin: 20px 0;
+  font-size: 13px;
+  color: grey;
+}
+.product-information{
+  width: 100%;
+}
+.product-img{
+  width: 100%;
+  @include above("md"){
+    width: 500px;
+  }
+}
+.brand-name-div{
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d4d5d9;
+}
+.product-information h1{
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  @include above("md"){
+    margin-top: 0px;
+  }
+}
+.product-information span{
+  display: block;
+}
+.one-line-discripton{
+  font-size: 18px;
+  font-weight: 300;
+  color: #535665;
+}
+.real-cost{
+  color: gray;
+  font-size: 20px;
+  margin:0 10px;
+  font-weight: 300;
+  text-decoration: line-through;
+}
+.discount-off{
+  font-size: 20px;
+  color: orange;
+}
+.product-details{
+  padding: 10px 0 ;
+  border-bottom: 1px solid #d4d5d9;
+}
+.about-tax{
+  font-size: 13px;
+  font-weight: 600;
+  color: #03a685;
+}
+.size{
+  font-weight: 600;
+  margin: 15px 0;
+}
+.size-options{
+  margin: 20px 0;
+}
+.size-options-ul{
+  display: flex;
+  align-items: center;
+}
+.size-options-ul li:hover{
+  border: 1px solid red;
+}
+.size-options li{
+  border: 1px solid #d4d5d9;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 15px 5px;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  @include above("md"){
+    margin-right: 20px;
+  }
+}
+.move-to-bag-btn{
+  width: 100%;
+  height: 45px;
+  background-color: #ff527b;
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  @include above("md"){
+    width: 250px;
+    margin-bottom: 0px;
+  }
+}
+.wishlist-btn:hover{
+  border: 1px solid red;
+}
+.wishlist-btn{
+  width: 100%;
+  font-size: 18px;
+  height: 45px;
+  font-weight: 500;
+  border: 1px solid #d4d5d9;
+  border-radius: 5px;
+  @include above("md"){
+    width: 250px;
+  }
 }

@@ -1,4 +1,4 @@
-const collection ={
+const collection = {
     init:function(){},
 }
 export default collection;

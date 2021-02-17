@@ -22,8 +22,8 @@ const popup = {
         document.body.append(creatPopup);
         document.body.append(ovaralyaDesplayElParent);
     },
-    open: function(x){
-        var popupElement = document.querySelector(x);
+    open: function(openOverlay){
+        var popupElement = document.querySelector(openOverlay);
         if(!popupElement){
             return;
         }
@@ -34,8 +34,8 @@ const popup = {
         this.Parent.append(popupElement);
         this.popupElement =popupElement ;
     },
-    close: function(y){
-        var popupRemove = document.querySelector(y);
+    close: function(closeOverlay){
+        var popupRemove = document.querySelector(closeOverlay);
         if(!popupRemove){
             return;
         };

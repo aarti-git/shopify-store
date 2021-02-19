@@ -7,7 +7,7 @@
     border: 0;
     box-sizing: border-box;
     font-family: "Roboto";
-    color: #282c3f;
+    letter-spacing: 0.5px;
 }
 body {
   a{
@@ -56,15 +56,28 @@ body {
 .space-between{
   justify-content: space-between;
 }
-.font{
+.flex-end{
+  justify-content: flex-end;
+}
+.align-self{
+  align-self: center;
+}
+.icons{
     width: 17px;
     height: 17px;
     cursor: pointer;
     align-self: center;
 }
-.cross-font {
+.small-icons{
+  width: 13px;
+  height: 13px;
+}
+.icons-size {
   width: 23px;
   height: 23px;
+}
+.vertical-align{
+  vertical-align:sub;
 }
 
 .tittle{
@@ -85,6 +98,7 @@ body {
 .desktop-navbar{
     display: flex;
     align-items: center;
+    height: 100%;
 }
 .menu-bar-list {
   padding: 15px;
@@ -248,11 +262,12 @@ body {
     display: none;
     width: 400px;
     position: absolute;
-    top: 50px;
+    top: 100%;
     left: 0;
     padding: 20px 10px;
     z-index: 1;
     background: white;
+    box-shadow: 0 7px 6px #999898b3;
   }
   .outfit-list ul li{
     padding: 7px;
@@ -330,7 +345,7 @@ body {
   right: 7px;
   right: 10px;
   top: 10px;
-  color: #d2d0d1;
+  // color: #d2d0d1;
   cursor: pointer;
 }
 .mobile-search-removeBtn{
@@ -455,6 +470,12 @@ body {
   padding: 20px 0;
 }
 // footer
+.footer{
+  background-color:#f8f8f8 ;
+  width: 100%;
+  padding: 20px 0 0;
+}
+
 .footer-parent{
   font-weight: 300;
   padding: 0 0 50px ;
@@ -468,35 +489,52 @@ body {
   padding: 0 20px;
 }
 .footer-list-tittle{
-  font-weight: 400;
+  font-weight: 600;
   color: black;
   display: block;
   margin: 20px 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
   @include above("md"){
-    margin: 0 0  20px;
+    margin: 0 0  10px;
   }
+}
+.social-media-links{
+  display: inline-block;
+  margin: 5px;
+}
+.footerUL li:hover{
+  color: #c69999;
 }
 .footer-sections li{
   font-size: 15px;
   font-weight: 300;
 }
-.footer-imgs{
-  width: 100px;
+.footer-imgs-parent{
+  margin: 15px 0;
 }
-.best-about-us span{
-  font-size: 15px;
+.footer-imgs{
+  height:35px;
+  vertical-align: middle;
+  width: 120px;
+}
+.best-about-us{
+  font-size: 14px;
   font-weight: 300;
 }
-.footer{
-  background-color:#f8f8f8 ;
-  width: 100%;
-  padding: 50px 0 0;
+.best-about-us p{
+  padding: 5px 0 0;
 }
 .footerUL,
 .footer p {
   font-weight: 300;
   font-size: 14px;
   text-align: justify;
+  text-transform: capitalize;
+}
+.footerUL li{
+  padding-bottom: 5px;
+  cursor: pointer;
 }
 .company-address p{
   width: 250px;
@@ -513,17 +551,159 @@ body {
 .contact span{
   display: block;
 }
+// collection page
+.Product-filter-weapper{
+  // background-color: beige;
+  // border: 1px solid;
+  margin: 10px 0;
+}
+.filter-name{
+  font-size: 15px;
+  font-weight: 500;
+}
+.filter-name span{
+  float: right;
+  font-size: 12px;
+  color: #ff3f6c;
+}
+.Product-filter-weapper label{
+  font-size: 13px;
+  vertical-align: text-top;
+  margin-left: 8px;
+
+}
+.filter-sections{
+  border-bottom: 1px solid #d4d5d9;
+  border-right: 1px solid #d4d5d9;
+  padding: 15px 0;
+
+}
+.brand-search-div{
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.brand-search-icon{
+  margin: 0 20px;
+  width: 30px;
+  height: 30px;
+  background: #e9e9e9;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+.sort-parent{
+  display: flex;
+  justify-content: flex-end;
+}
+.sortting{
+  border: 1px solid gainsboro;
+  padding: 5px;
+  width: 250px;
+  text-align: center;
+  font-size: 14px;
+}
+.filter-sort{
+  padding-bottom: 10px;
+  // margin-bottom: 10px;
+  border-bottom: 1px solid #d4d5d9;
+}
+.product-name-count{
+  padding-bottom: 20px;
+}
+.product-name-count span{
+  font-weight: 200;
+  color: #878b94;
+}
+.collection-list{
+  margin: 20px 0 0 ;
+}
+.filter-div{
+  margin-bottom: 5px;
+  // position: relative;
+}
+.input-cheked-div{
+  position: relative;
+  display: inline-block;
+}
+.checkboxIndicator{
+  width: 5px;
+  height: 5px;
+  border: 1px solid;
+}
+.filter-sections input {
+  opacity: 0;
+  // width: 16px;
+  // height: 16px;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.radioIndicator-parent{
+  width: 16px;
+  height: 16px;
+  border: 1px solid #d4d5d9;
+  border-radius: 50%;
+}
+.common-radioIndicator{
+  display: none;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  // display: inline-block;
+  background-color: #ff3f6c;
+}
+input:checked + .common-radioIndicator{
+  // background-color: #ff3f6c;
+  display: block;
+}
+.checkboxIndicator-parent{
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #d4d5d9;
+  // background-color: #ff3f6c;
+}
+.common-checkboxIndicator{
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  color: white;
+  
+}
+// .common-radioIndicator::after{
+//   content:"";
+//   background-color: black;
+//   width: 5px;
+//   height: 5px;
+// }
+
+
+
+
+
+
 // product page
 .product-Link-steps{
   margin: 20px 0;
   font-size: 13px;
-  color: grey;
+  font-weight: 300;
 }
 .product-information{
   width: 100%;
 }
 .product-img{
   width: 100%;
+  max-width: 100%;
   @include above("md"){
     width: 500px;
   }
@@ -534,16 +714,15 @@ body {
 }
 .product-information h1{
   font-size: 28px;
-  display: flex;
   align-items: center;
   margin-top: 20px;
   @include above("md"){
     margin-top: 0px;
   }
 }
-.product-information span{
-  display: block;
-}
+// .product-information span{
+//   display: block;
+// }
 .one-line-discripton{
   font-size: 18px;
   font-weight: 300;
@@ -568,6 +747,13 @@ body {
   font-size: 13px;
   font-weight: 600;
   color: #03a685;
+  display: block;
+  margin-bottom: 20px;
+}
+.dilivery-options{
+  font-weight: 600;
+  margin: 15px 0;
+  display: block;
 }
 .size{
   font-weight: 600;
@@ -581,7 +767,7 @@ body {
   align-items: center;
 }
 .size-options-ul li:hover{
-  border: 1px solid red;
+  border: 1px solid #ff3f6c;
 }
 .size-options li{
   border: 1px solid #d4d5d9;
@@ -608,12 +794,12 @@ body {
   margin-right: 20px;
   margin-bottom: 10px;
   @include above("md"){
-    width: 250px;
+    // width: 250px;
     margin-bottom: 0px;
   }
 }
 .wishlist-btn:hover{
-  border: 1px solid red;
+  border: 1px solid #ff3f6c;
 }
 .wishlist-btn{
   width: 100%;
@@ -625,4 +811,9 @@ body {
   @include above("md"){
     width: 250px;
   }
+}
+.product-price{
+  font-size: 28px;
+  align-items: center;
+  margin-top: 20px;
 }

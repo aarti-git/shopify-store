@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "webpack serve --open",
+    "dev": "webpack serve",
     "build": "webpack"
   },
   "dependencies": {

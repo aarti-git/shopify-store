@@ -12,12 +12,22 @@
 body {
   a{
    text-decoration: none;
-    color: inherit;
+   color: inherit;
   }
   
   ul {
     list-style: none;
   }
+}
+main{
+  margin-top: 90px;
+}
+.app-color{
+  color: #3d3d3d;
+}
+
+.active{
+  background-color:black !important;
 }
 // overlay
 .overlay {
@@ -66,15 +76,17 @@ body {
     width: 17px;
     height: 17px;
     cursor: pointer;
-    align-self: center;
+    // align-self: center;
 }
 .small-icons{
   width: 13px;
   height: 13px;
+  cursor: pointer;
 }
 .icons-size {
   width: 23px;
   height: 23px;
+  cursor: pointer;
 }
 .vertical-align{
   vertical-align:sub;
@@ -89,16 +101,27 @@ body {
   }
 }
 // header css
+.header-main{
+  position: relative;
+}
 .header{
-  height: 60px;
-  box-shadow: 0 2px 10px #e7e7e7;
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
 }
 .desktop-navbar{
     display: flex;
     align-items: center;
     height: 100%;
+    padding: 10px 0;
+    @include above("md"){
+      padding: 0;
+    }
 }
 .menu-bar-list {
   padding: 15px;
@@ -112,8 +135,8 @@ body {
   margin: 22px 0;
 }
 .remove-form {
-  float: right;
-  // margin: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 .remove-form button:hover {
   box-shadow: 0 0 3px #bebdbd;
@@ -172,8 +195,8 @@ body {
   }
 }
 .logo-font {
-  height: 23px;
-  width: 23px;
+  height: 20px;
+  width: 20px;
   color: #ed1c24;
   @include above("md") {
     height: 25px;
@@ -205,6 +228,10 @@ body {
   height: 40px;
   vertical-align: middle;
   align-self: center;
+  @include above("md"){
+    width: 50px;
+    height: 50px;
+  }
 }
 .list-wrapper {
   display: none;
@@ -248,7 +275,7 @@ body {
       padding: 10px;
     }
     @include above("lg") {
-      padding: 20px;
+      padding: 25px;
     }
   }
   .outfit-list-tittle{
@@ -320,6 +347,7 @@ body {
 .search-bar {
   display: none;
   width: 100%;
+  // padding: 10px 0;
   @include above("md") {
     display: block !important;
     background: #f5f5f6;
@@ -437,6 +465,9 @@ body {
 .trending-parent{
   width: 100%;
   position: relative;
+  margin: 10px 0 25px;
+  border: 1px solid transparent;
+  color: #282c3f;
 }
 .collection-name{
   position: absolute;
@@ -453,6 +484,69 @@ body {
 .categaries-img{
   width: 100%;
   vertical-align: middle;
+  height: 280px;
+  object-fit: cover;
+  object-position: top;
+}
+.categaries-parent:hover{
+  box-shadow: 0px 2px 10px gainsboro;
+}
+.display-product-details{
+  padding: 10px 15px ;
+}
+.product-name{
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 3px;
+}
+.product-discription{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  font-size: 12px;
+  margin: 5px 0 ;
+}
+.product-current-cost{
+  font-weight: 500;
+}
+.product-real-cost{
+  text-decoration: line-through;
+  font-size: 12px;
+}
+.discount{
+  color:orange;
+  font-size: 12px;
+}
+.categaries-parent:hover .product-details-onhover{
+  display: block;
+  // transition: 5s;
+}
+.product-details-onhover{
+  display: none;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  left: 0;
+  background-color: white;
+  padding: 20px 10px 10px;
+}
+.product-details-onhover button{
+  border: 1px solid gainsboro;
+  padding: 6px;
+  width: 100%;
+  display: block;
+  margin: 8px 0;
+  background: white;
+}
+.product-details-onhover span{
+  font-size: 13px;
+}
+.product-details-onhover .size-no{
+  font-size: 13px;
+  color: gray;
+  font-weight: 300;
+  padding: 0 2px ;
+
 }
 
 // traindding
@@ -474,6 +568,8 @@ body {
   background-color:#f8f8f8 ;
   width: 100%;
   padding: 20px 0 0;
+  // position: sticky;
+  // top: 0;
 }
 
 .footer-parent{
@@ -536,39 +632,85 @@ body {
   padding-bottom: 5px;
   cursor: pointer;
 }
-.company-address p{
-  width: 250px;
-  font-size: 15px;
-  font-weight: 300;
-  margin: 8px 0;
+// footer end
+
+// index page
+.banner-section{
+  overflow: hidden;
+  white-space: nowrap;
 }
-.company-address {
-  padding-bottom: 50px;
+.banner-section::-webkit-scrollbar {
+  display: none;
 }
-.contact{
-  float: right;
- }
-.contact span{
-  display: block;
+.banner-parent{
+  display: inline-flex;
+  flex-wrap: nowrap;
+  
 }
+.banner-item{
+  width: 100%;
+  transition: .2s;
+  flex-shrink: 0;
+}
+.banner-img{
+  width: 100%;
+}
+.banner-buts{
+  margin: 0 auto;
+  text-align: center;
+  cursor: pointer;
+}
+.dot-btn::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    padding: 7px;
+}
+
+.dot-btn-parent{
+  width: 20px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+}
+.dot-btn{
+  outline: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: gainsboro;
+  margin: 5px;
+}
+
+
+
+
+
+
+
+
+
+
 // collection page
 .Product-filter-weapper{
-  // background-color: beige;
-  // border: 1px solid;
+  position: sticky;
+  top: 100px;
   margin: 10px 0;
 }
 .filter-name{
   font-size: 15px;
   font-weight: 500;
+  display: flex;
+  justify-content: space-between;
 }
 .filter-name span{
-  float: right;
   font-size: 12px;
   color: #ff3f6c;
 }
-.Product-filter-weapper label{
+.filter-div span{
   font-size: 13px;
-  vertical-align: text-top;
+  // vertical-align: text-top;
   margin-left: 8px;
 
 }
@@ -576,12 +718,14 @@ body {
   border-bottom: 1px solid #d4d5d9;
   border-right: 1px solid #d4d5d9;
   padding: 15px 0;
+  // position: relative;
 
 }
 .brand-search-div{
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .brand-search-icon{
   margin: 0 20px;
@@ -600,8 +744,29 @@ body {
   border: 1px solid gainsboro;
   padding: 5px;
   width: 250px;
-  text-align: center;
   font-size: 14px;
+  position: relative;
+}
+.sortting span{
+  font-weight: 300;
+}
+.sortting select{
+  width: 190px;
+  font-weight: bold;
+  outline: none;
+  position: absolute;
+  top: 4px;
+  right: 0;
+}
+.custom-select-box{
+  width: 100%;
+  text-align: center;
+  background: white;
+  z-index: 1;
+  font-size: 14px;
+}
+.custom-select-box li{
+  padding: 5px;
 }
 .filter-sort{
   padding-bottom: 10px;
@@ -619,84 +784,123 @@ body {
   margin: 20px 0 0 ;
 }
 .filter-div{
-  margin-bottom: 5px;
-  // position: relative;
+  margin-bottom: 10px;
+}
+.filter-div label{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 .input-cheked-div{
   position: relative;
   display: inline-block;
+  width: 16px;
+  height: 16px;
 }
 .checkboxIndicator{
   width: 5px;
   height: 5px;
   border: 1px solid;
 }
-.filter-sections input {
+.input-cheked-div input {
   opacity: 0;
-  // width: 16px;
-  // height: 16px;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
+  cursor: pointer;
 }
 .radioIndicator-parent{
-  width: 16px;
-  height: 16px;
+  width: 100%;
+  height: 100%;
   border: 1px solid #d4d5d9;
   border-radius: 50%;
 }
 .common-radioIndicator{
   display: none;
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  // display: inline-block;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
   background-color: #ff3f6c;
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
 }
 input:checked + .common-radioIndicator{
-  // background-color: #ff3f6c;
+  display: block;
+}
+input:checked + .after-checkboxIndicator{
   display: block;
 }
 .checkboxIndicator-parent{
-  position: absolute;
-  top: 2px;
-  left: 0;
-  width: 16px;
-  height: 16px;
+  width: 100%;
+  height: 100%;
   border: 1px solid #d4d5d9;
-  // background-color: #ff3f6c;
 }
-.common-checkboxIndicator{
+.after-checkboxIndicator{
+  display: none;
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  color: white;
-  
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #ff3f6c;
 }
-// .common-radioIndicator::after{
-//   content:"";
-//   background-color: black;
-//   width: 5px;
-//   height: 5px;
-// }
-
-
-
+.chiled-checkboxIndicator{
+  width: 100%;
+  height: 100%;
+  color: white; 
+  padding: 3px;
+}
+.filter-section-tittles{
+  margin-bottom: 15px;
+}
+.brand-num{
+  font-size: 10px !important;
+  color: #94969f;
+  margin-left: 5px !important;
+}
+.color-shades{
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  border-radius:50%;
+  // border: 1px solid #d4d5d9;
+}
+.barnd-search-bar{
+  background: #f5f5f6;
+  border-radius: 20px;
+  margin-bottom: 13px;
+  position: relative;
+  margin-right: 20px;
+}
+.barnd-search-bar input{
+  background:transparent;
+  width: 100%;
+  height: 32px;
+  padding: 2px 15px;
+  outline: none;
+}
+.brand-search-remove{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin: 7px 10px;
+}
 
 
 
 // product page
 .product-Link-steps{
   margin: 20px 0;
-  font-size: 13px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgb(128 128 128);
 }
 .product-information{
   width: 100%;
@@ -816,4 +1020,20 @@ input:checked + .common-radioIndicator{
   font-size: 28px;
   align-items: center;
   margin-top: 20px;
+  font-weight: 500;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  height: 2px;
+  width: 80%;
+  background: black;
+  transition: width 5s ease;
+}
+
+.loader.--resolved {
+  transition-duration: .5s;
+  width: 100%;
 }

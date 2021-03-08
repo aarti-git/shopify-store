@@ -13,10 +13,15 @@ const router = new Router({
             template: require('@router/index/view.html'),
             controller: require('@router/index/controller.js'),
         },
+        // {
+        //     path: '/allCollections',
+        //     template: require('@router/allCollections/view.html'),
+        //     controller: require('@router/allCollections/controller.js'),
+        // },
         {
             path: '/collections',
-            template: require('@router/collections/view.html'),
-            controller: require('@router/collections/controller.js'),
+            template: require('@router/all-collections/view.html'),
+            controller: require('@router/all-collections/controller.js'),
             routes:[{
                 path: '/:handle',
                 template: require('@router/collections/view.html'),
@@ -36,7 +41,6 @@ const router = new Router({
     ]
 });
 
-console.log(router)
 // router.on('routeChange', function(e){
 //     index.default.afterRoute(e)
 // })

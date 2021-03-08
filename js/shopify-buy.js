@@ -6,13 +6,21 @@ const shopifyBuy ={
             domain: 'shopping-dream-store.myshopify.com',
             storefrontAccessToken: '0e2505a0fe7886742e4c9fc6e1604730'
           });
-          console.log("shopify init done.")
+        //   console.log("shopify init done.")
+        this.getData();
     },
     getData:function(){
+        var _this = this;
         this._client.product.fetchAll().then(function(data){
-            console.log(data);
+            var shopifydata = data;
+            console.log("shopity data",shopifydata); 
+            _this.dataManipulation(shopifydata);
+            return shopifydata;
           });
-          console.log("shopify getData done.")
+    },
+    dataManipulation:function(data){
+        var dataList = data[9];
+       console.log(dataList);
     }
 }
 

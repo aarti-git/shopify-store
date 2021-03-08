@@ -1,0 +1,5 @@
+const AllCollections = {
+    init:function(){
+        
+    }
+}

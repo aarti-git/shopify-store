@@ -1,0 +1,21 @@
+/* input:checked + .after-checkboxIndicator > svg {
+    transform: scale(1) rotate(0deg);
+} */
+
+@keyframes checked {
+    from {
+        transform: scale(0) rotate(180deg);
+    }
+    to {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes checked-fill {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}

@@ -1,8 +1,7 @@
-const collection = {
+const collections = {
     init:function($view, $param){
         console.log('$param', $param)
         var _this = this;
-        console.log("collection init done")
         // var checkboxIndicator = document.querySelectorAll(".checkboxIndicator-parent");
         this._brandSearchParentEl = $view.querySelector(".brand-search-div");
         this._brandSearchBar = $view.querySelector(".barnd-search-bar");
@@ -24,4 +23,4 @@ const collection = {
         this._brandSearchParentEl.classList.remove("hide");
     }
 }
-export default collection;
+export default collections;

@@ -1,6 +1,6 @@
 const slider = {
   init: function ($view) {
-    console.log("view", $view)
+    // console.log("view", $view)
     const _this = this;
     this._view = $view;
     this._TranslateX = 100;
@@ -20,7 +20,7 @@ const slider = {
       }
       dot.addEventListener("click", function () {
         _this.bannerSlider(this, id);
-        console.log("id = ", id);
+        // console.log("id = ", id);
       });
     });
 
@@ -47,13 +47,16 @@ const slider = {
     for (var i = 0; i < this._bannerItemList.length; i++) {
       this._bannerItemList[i].style.transform = "translateX(" + datasetV + "%)";
     }
-    this.bannerAtomaticSlider();
+    this.bannerAtomaticSlider(id);
   },
-  bannerAtomaticSlider: function () {
+  bannerAtomaticSlider: function (x) {
     const _this = this;
     var dotBtns = this._view.querySelectorAll(".dot-btn");
     var count = 1;
     var prv;
+    if(x){
+      count= x+1;
+    }
     this._interval = setInterval(function () {
       //slider  active button
       if (prv == undefined) {

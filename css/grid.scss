@@ -1,9 +1,10 @@
+// var 
 $viewports:("xs": "0", "sm": "480px", "md": "768px", "lg": "1024px", "xl": "1500px");
 $columns: 12;
 $space: 10px;
 
 @import "./mixin.scss";
-
+// css
 .container {
     margin: 0 auto;
 };
@@ -47,7 +48,19 @@ $space: 10px;
         } @else if $port-name == "xl" {
             $container-width: calc(100vw - 135px);
         }
-
+        // @if $port-name == "xs" {
+        //     $container-width: 100%;
+        //     $padding: 0 10px;
+        // } @else if $port-name == "sm" {
+        //     $container-width: calc(100vw - 30px);
+        //     $padding: 0;
+        // } @else if $port-name == "md" {
+        //     $container-width: calc(100vw - 70px);
+        // } @else if $port-name == "lg" {
+        //     $container-width: calc(100vw - 150px);
+        // } @else if $port-name == "xl" {
+        //     $container-width: calc(100vw - 271px);
+        // }
         .container {
             width: $container-width;
             padding: $padding;

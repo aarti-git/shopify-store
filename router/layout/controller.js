@@ -55,6 +55,7 @@ const layout = {
 		this.row.firstElementChild.classList.add("hide");
 		this.row.lastElementChild.classList.add("col-xs-12");
 		this._searchInput.style.background= "white";
+		// this._searchInput.style.padding= "10px 0";
 	},
 	mobileSearchClose: function () {
 		this._searchFont.classList.remove("hide");
@@ -63,6 +64,7 @@ const layout = {
 		this.row.firstElementChild.classList.remove("hide");
 		this.row.lastElementChild.classList.remove("col-xs-12");
 		this._searchInput.style.background= "";
+		// this._searchInput.style.padding= "0";
 		this._searchInput.value = "";
 		this.clearSearchBtn();
 	},

@@ -1,3 +1,4 @@
+import { setupLink } from '@js/utils.js'
 const collections = {
     init:function($view, $param){
         console.log('$param', $param)
@@ -12,7 +13,9 @@ const collections = {
         })
         this._brandSearchRemoveBtn.addEventListener("click",function(){
             _this.barndSearchBarClose();
-         })
+        })
+
+        setupLink($view)
     },
     barndSearchBarOpen:function(){
         this._brandSearchBar.classList.remove("hide");

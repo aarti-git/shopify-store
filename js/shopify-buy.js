@@ -7,11 +7,11 @@ const shopifyBuy ={
             storefrontAccessToken: '0e2505a0fe7886742e4c9fc6e1604730'
           });
         //   console.log("shopify init done.")
-        this.getData();
+        // this.getData();
     },
     getData:function(){
         var _this = this;
-        this._client.product.fetchAll().then(function(data){
+        return this._client.product.fetchAll().then(function(data){
             var shopifydata = data;
             console.log("shopity data",shopifydata); 
             _this.dataManipulation(shopifydata);
@@ -19,7 +19,7 @@ const shopifyBuy ={
           });
     },
     dataManipulation:function(data){
-        var dataList = data[9];
+        var dataList = data[0];
        console.log(dataList);
     }
 }

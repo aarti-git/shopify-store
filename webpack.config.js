@@ -39,7 +39,7 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader", ],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|webp|jfif)$/i,
         type: "asset/resource",
       },
       // fonts

@@ -13,11 +13,6 @@ const router = new Router({
             template: require('@router/index/view.html'),
             controller: require('@router/index/controller.js'),
         },
-        // {
-        //     path: '/allCollections',
-        //     template: require('@router/allCollections/view.html'),
-        //     controller: require('@router/allCollections/controller.js'),
-        // },
         {
             path: '/collections',
             template: require('@router/all-collections/view.html'),
@@ -29,11 +24,11 @@ const router = new Router({
             }]
         },
         {
-            path: '/product',
+            path: '/products',
             template: require('@router/product/view.html'),
             controller: require('@router/product/controller.js'),
             routes: [{
-                path: '/:productHandle/:name',
+                path: '/:handle',
                 template: require('@router/product/view.html'),
                 controller: require('@router/product/controller.js'),
             }]

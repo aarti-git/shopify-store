@@ -13,7 +13,7 @@ const slider = {
     const sliderBtn = $view.querySelector(".banner-buts");
     this._bannerItemList.forEach(function (item, id) {
       var dot = document.createElement("button");
-      dot.classList.add('dot-btn')
+      dot.classList.add("dot-btn");
       sliderBtn.append(dot);
       if (id == 0) {
         dot.classList.add("active");
@@ -28,7 +28,7 @@ const slider = {
   },
   bannerSlider: function (el, id) {
     var dotBtns = this._view.querySelector(".active");
-    dotBtns.classList.remove("active")
+    dotBtns.classList.remove("active");
     this.activeBtn(el);
     clearInterval(this._interval);
     var datasetV = this._bannerParent.dataset.slidepos;
@@ -54,8 +54,8 @@ const slider = {
     var dotBtns = this._view.querySelectorAll(".dot-btn");
     var count = 1;
     var prv;
-    if(x){
-      count= x+1;
+    if (x) {
+      count = x + 1;
     }
     this._interval = setInterval(function () {
       //slider  active button
@@ -87,7 +87,8 @@ const slider = {
       _this._bannerParent.dataset.slidepos = datasetV;
 
       for (var i = 0; i < _this._bannerItemList.length; i++) {
-        _this._bannerItemList[i].style.transform = "translateX(" + datasetV + "%)";
+        _this._bannerItemList[i].style.transform =
+          "translateX(" + datasetV + "%)";
       }
     }, 5000);
   },

@@ -4,7 +4,8 @@ const app = {
   init: function ($view) {
     slider.init($view);
     shopifyBuy.init()
-    shopifyBuy.getData().then(resp => console.log('resp=>', resp))
+    // shopifyBuy.getData().then(resp => console.log('resp=>', resp))
+    // shopifyBuy.id().then(resp => console.log('idResp=>', resp))
   },
   afterRoute: function () {
     const allAnchorTags = document.querySelectorAll("a");

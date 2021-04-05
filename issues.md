@@ -1,0 +1,1 @@
+- page should not refresh on click of product

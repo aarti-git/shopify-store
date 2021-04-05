@@ -6,8 +6,6 @@ import iconsUrl from "../../img/icons.svg";
 const collections = {
   init: function ($view, $param) {
     var _this = this;
-    // filter.init($view, $param)
-    console.log("param = ", $param);
     shopifyBuy.init();
     this.baseContaint($view);
     shopifyBuy.getCollectionByHandle($param.handle).then(function (resp) {
@@ -186,58 +184,53 @@ const collections = {
     `;
     this._filterColorList.innerHTML = mustache.render(template, ProductColor);
   },
-  dynamicPriceList:function(resp){
-   var ProductPrice =[];
-   var ProductPriceObj = {
-     price:[]
-   };
+  dynamicPriceList: function (resp) {
+    var ProductPrice = [];
+    var ProductPriceObj = {};
     var products = resp.products;
     for (var i = 0; i < products.length; i++) {
       var price = products[i].variants[0].price;
       ProductPrice.push(price);
       // console.log("price",price)
     }
-    var maxprice = Math.max(...ProductPrice)
-    // console.log("maxprice",maxprice);
-    if(maxprice <= 2000){
-      var x = "Rs.0 To Rs.500";
-      var y = "Rs.500 To Rs.2000";
-      ProductPriceObj.price.push(x);
-      ProductPriceObj.price.push(y);
-    }else if(maxprice <= 4000){
-      var x = "Rs.2000 To Rs.3000";
-      var y = "Rs.3000 To Rs.4000";
-      ProductPriceObj.price.push(x);
-      ProductPriceObj.price.push(y);
-    }
-   
+    var maxprice = Math.max(...ProductPrice);
+    var result = this.priceDivision(maxprice, 500);
+    console.log("result==", result);
+    ProductPriceObj["price"] = result;
+    // ProductPriceObj.price.push(result);
     var template = `{{#price}}<div class="filter-div">
     <label>
-        <div class="input-cheked-div">
-            <div class="checkboxIndicator-parent"></div>
-            <input type="checkbox" name="brand" />
-            <div class="after-checkboxIndicator">
-                <svg class="chiled-checkboxIndicator">
-                    <use xlink:href="${iconsUrl}#check"></use>
-                </svg>
-            </div>
-        </div>
-        <span>{{.}}</span>
-        <span class="brand-num">(5120)</span>
+      <div class="input-cheked-div">
+          <div class="checkboxIndicator-parent"></div>
+          <input data-min="{{min}}" data-max="{{max}}" type="checkbox" name="brand" />
+          <div class="after-checkboxIndicator">
+              <svg class="chiled-checkboxIndicator">
+                  <use xlink:href="${iconsUrl}#check"></use>
+              </svg>
+          </div>
+      </div>
+      <span>Rs. {{min}} To Rs. {{max}}</span>
+      <span class="brand-num">(5120)</span>
     </label>
 </div>
-{{/price}}`
-this._price.innerHTML = mustache.render(template, ProductPriceObj);
+{{/price}}`;
+    this._price.innerHTML = mustache.render(template, ProductPriceObj);
   },
-  showMoreLess: function () {
-    if (this.showMore == false) {
-      this._filterColorList.classList.remove("color-list");
-      this._moreColoursBtn.innerHTML = "show less";
-    } else {
-      this._filterColorList.classList.add("color-list");
-      this._moreColoursBtn.innerHTML = "show More";
+  priceDivision: function (maxprice, limit) {
+    var priceDivisionArray = [];
+    var priceList = [];
+    var loopLength = maxprice / limit;
+    for (var i = 0; i <= loopLength; i++) {
+      var noDivisoin = i * limit;
+      priceDivisionArray.push(noDivisoin);
     }
-    this.showMore = !this.showMore;
+    for (var j = 0; j < priceDivisionArray.length - 1; j++) {
+      priceList.push({
+        min: priceDivisionArray[j], 
+        max: priceDivisionArray[j + 1]
+      });
+    }
+    return priceList;
   },
 };
 export default collections;

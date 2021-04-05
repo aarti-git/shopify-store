@@ -66,29 +66,23 @@ const filter = {
     var price = this._view.querySelector(".price");
     var priceInputs = price.querySelectorAll("input");
     priceInputs.forEach(function (item) {
-      item.addEventListener("change", function (item) {
-        var itemName = item.target.parentElement.nextElementSibling.innerText;
-        // console.log("item == ",itemName)
-        if (item.target.checked == true) {
+      item.addEventListener("change", function (event) {
+        var item = this.dataset;
+
+        if (event.target.checked == true) {
           var products = resp.products;
           for (var i = 0; i < products.length; i++) {
             var price = products[i].variants[0].price;
-            if (itemName == "Rs.0 To Rs.500") {
-              if (price <= 500) {
-                var r = products[i];
+            var maxNo = Number(item.max)
+            var minNo = Number(item.min)
+            console.log("numbers ==", maxNo);
+            if(price <= maxNo && price >= minNo){
+              var r = products[i];
                 validProduct.push(r);
-                // console.log("priceR==", r);
-              }
-            } else {
-              if (price <= 2000 && price > 500) {
-                var r = products[i];
-                validProduct.push(r);
-                // console.log("priceR==", r);
-              }
+                console.log("priceR==", r);
             }
           }
-          // console.log("validProduct ==", validProduct);
-          priceObj["products"] = validProduct;
+          priceObj.products = validProduct;
           console.log("priceObj", priceObj);
           collections.dataCollection(priceObj);
           validProduct = [];

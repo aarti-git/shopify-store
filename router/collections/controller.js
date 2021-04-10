@@ -122,11 +122,11 @@ const collections = {
         }
       });
     }
-    const template = ` {{#handleProdArray}} <div class="filter-div">
+    const template = ` {{#handleProdArray}} <div class="filter-div ">
           <label>
               <div class="input-cheked-div">
                   <div class="checkboxIndicator-parent"></div>
-                  <input type="checkbox" name="brand" />
+                  <input data-brand="{{.}}" type="checkbox" name="brand" />
                   <div class="after-checkboxIndicator">
                       <svg class="chiled-checkboxIndicator">
                           <use xlink:href="${iconsUrl}#check"></use>
@@ -168,7 +168,7 @@ const collections = {
           <label>
               <div class="input-cheked-div">
                   <div class="checkboxIndicator-parent"></div>
-                  <input type="checkbox" name="brand" />
+                  <input data-color="{{.}}" type="checkbox" name="brand" />
                   <div class="after-checkboxIndicator">
                       <svg class="chiled-checkboxIndicator">
                           <use xlink:href="${iconsUrl}#check"></use>

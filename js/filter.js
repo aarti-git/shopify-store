@@ -6,7 +6,9 @@ const filter = {
     this._resp = resp;
     this._count = 0;
     this._brand = 0;
-    this.colorCount = 0;
+    this._color = 0;
+    this.isColorCal = 0;
+    this.isbrandCal =0;
     this.filterEvents();
   },
   filterEvents: function () {
@@ -23,16 +25,39 @@ const filter = {
     });
 
     // barnd and color filter change events
-    var brandAndColor = _this._view.querySelectorAll(".brand-and-color");
-    brandAndColor.forEach(function (item) {
-      var priceInputs = item.querySelectorAll("input");
-      priceInputs.forEach(function (item) {
-        item.addEventListener("change", function (event) {
-          _this.brandColorFilter(this, event);
-          _this.multipleFilter();
-        });
+    // var brandAndColor = _this._view.querySelectorAll(".brand-and-color");
+    // brandAndColor.forEach(function (item) {
+    //   var priceInputs = item.querySelectorAll("input");
+    //   priceInputs.forEach(function (item) {
+    //     item.addEventListener("change", function (event) {
+    //       _this.brandColorFilter(this, event);
+    //       _this.multipleFilter();
+    //     });
+    //   });
+    // });
+
+    // brand
+    var brand = _this._view.querySelector(".brand");
+    var brandInputs = brand.querySelectorAll("input");
+
+    brandInputs.forEach(function (item) {
+      item.addEventListener("change", function (event) {
+        _this.barndFilter(this, event);
+        _this.multipleFilter();
       });
     });
+
+    // color
+    var color = _this._view.querySelector(".color");
+    var colorInputs = color.querySelectorAll("input");
+
+    colorInputs.forEach(function (item) {
+      item.addEventListener("change", function (event) {
+        _this.ColorFilter(this, event);
+        _this.multipleFilter();
+      });
+    });
+
     // price filter event
     var price = _this._view.querySelector(".price");
     var priceInputs = price.querySelectorAll("input");
@@ -40,10 +65,11 @@ const filter = {
     priceInputs.forEach(function (item) {
       item.addEventListener("change", function (event) {
         _this.priceFilter(this, event);
-        _this.multipleFilter();
+        // _this.multipleFilter();
       });
     });
   },
+
   multipleFilter: function () {
     var filterParent = this._view.querySelector(".Product-filter-weapper");
     var inputs = filterParent.querySelectorAll("input");
@@ -74,13 +100,211 @@ const filter = {
       genderProductObj.products = filterProductList;
       console.log("priceObj", genderProductObj);
       collections.dataCollection(genderProductObj);
-      filterProductList = [];
       this.currentRspo = genderProductObj;
+      if (filterProductList.length == 0) {
+        this.currentRspo = undefined;
+      }
+      filterProductList = [];
       console.log("this.currentRspo", this.currentRspo);
     }
   },
+  barndFilter: function (el, ev) {
+    var _this = this;
+    var brandValidproductList = [];
+    const barndObj = {};
+    // if(!el.checked){
+    //   this._brand = 0;
+    // }
+    if (this.currentRspo && this._brand == 0) {
+      var productsList = this.currentRspo.products;
+      this._brandPreviousL = productsList;
+    } else {
+      productsList = this._brandPreviousL;
+      if (productsList == undefined) {
+        // var newproductsList = this._resp.products;
+        productsList = this._resp.products;
+      }
+    }
+
+    this._brand++;
+    console.log("change-event-el == ", el);
+    var item = el.dataset;
+    if (el.checked == true) {
+      this.isbrandCal++
+      console.log(item, "item");
+      productsList.forEach(function (prodcut) {
+        var productTags = prodcut.tags;
+        productTags.filter(function (tag) {
+          var a = tag.value.slice(0, 12);
+          // item = el.dataset;
+          // _this._key = Object.keys(item);
+          // if (_this._key == "brand") {
+          if (a == "filter-brand") {
+            var x = `filter-brand-${item.brand}`;
+            if (tag == x) {
+              brandValidproductList.push(prodcut);
+            }
+          }
+          // }
+        });
+      });
+      // this._brand > 1
+      if (this.currentRspo && this.isbrandCal > 1) {
+        this.currentRspo.products.forEach(function (item) {
+          brandValidproductList.push(item);
+        });
+      }
+      barndObj.products = brandValidproductList;
+      console.log("barndObj", barndObj);
+      collections.dataCollection(barndObj);
+      this.currentRspo = barndObj;
+      brandValidproductList = [];
+      console.log("this.currentRspo", this.currentRspo);
+    } else {
+      var _this = this;
+      this.isbrandCal-- 
+      if (this._brandPreviousL) {
+        this.currentRspo.products = this._brandPreviousL;
+      }
+
+      if(this.isbrandCal == 0 && this.currentRspo){
+        if(this._brandPreviousL == undefined){
+          this._brandPreviousL = this._resp.products;
+        }
+        this.currentRspo.products =  this._brandPreviousL;
+        barndObj.products =  this._brandPreviousL;
+        collections.dataCollection(barndObj);
+        // this._previousColor = undefined;
+        return;
+      }
+
+
+      for (var i = 0; i < this.currentRspo.products.length; i++) {
+        var courrentItem = this.currentRspo.products[i];
+        var courrentItemTag = courrentItem.tags;
+        courrentItemTag.forEach(function (tagItem) {
+          console.log("currenttag", tagItem);
+          var ProdName = tagItem.value.slice(13);
+          if (el.dataset.brand == ProdName) {
+            var ProductRemoveindex = _this.currentRspo.products.indexOf(
+              courrentItem
+            );
+            if (ProductRemoveindex > -1) {
+              _this.currentRspo.products.splice(ProductRemoveindex, 1);
+              i = -1;
+            }
+          }
+        });
+      }
+      barndObj.products = this.currentRspo.products;
+      collections.dataCollection(barndObj);
+    }
+  },
+  ColorFilter: function (el, ev) {
+    var _this = this;
+    var colorvalidProductList = [];
+    const colorObj = {};
+    // if(!el.checked){
+    //   this._color = 0;
+    // }
+    if (this.currentRspo && this._color == 0) {
+      var productsList = this.currentRspo.products;
+      this._ColorPreviousL = productsList;
+    } else {
+      productsList = this._ColorPreviousL;
+      if (productsList == undefined) {
+        productsList = this._resp.products;
+      }
+    }
+
+    this._color++;
+    if (el.checked == true) {
+      this.isColorCal++
+      // console.log(item, "item");
+      productsList.forEach(function (prodcut) {
+        var productTags = prodcut.tags;
+        productTags.filter(function (tag) {
+          var a = tag.value.slice(0, 12);
+          var item = el.dataset;
+          _this._key = Object.keys(item);
+          if (_this._key == "color") {
+            // item = el.dataset;
+            if (a == "filter-color") {
+              var x = `filter-color-${item.color}`;
+              if (tag == x) {
+                colorvalidProductList.push(prodcut);
+              }
+            }
+          }
+        });
+      });
+      // if (addProduct == true) {
+      // this._key == "brand"
+      // this._color > 0
+      // if(this._previousColor == undefined){
+      //   this._previousColor = el.dataset;
+      // }
+      if (this.currentRspo && this.isColorCal > 1) {
+        this.currentRspo.products.forEach(function (item) {
+          colorvalidProductList.push(item);
+        });
+      }
+      colorObj.products = colorvalidProductList;
+      console.log("colorObj", colorObj);
+      collections.dataCollection(colorObj);
+      this.currentRspo = colorObj;
+      colorvalidProductList = [];
+      console.log("this.currentRspo", this.currentRspo);
+      // }
+    } else {
+      this.isColorCal--;
+      var _this = this;
+      if (this._ColorPreviousL) {
+        this.currentRspo.products = this._ColorPreviousL;
+      }
+
+      if(this.isColorCal == 0 && this.currentRspo){
+        if(this._ColorPreviousL == undefined){
+          this._ColorPreviousL = this._resp.products;
+        }
+        this.currentRspo.products =  this._ColorPreviousL;
+        colorObj.products =  this._ColorPreviousL;
+        collections.dataCollection(colorObj);
+        // this._previousColor = undefined;
+        return;
+      }
+
+      // this.currentRspo.products.forEach(function (courrentItem) {
+      for (var i = 0; i < this.currentRspo.products.length; i++) {
+        var courrentItem = this.currentRspo.products[i];
+        var courrentItemTag = courrentItem.tags;
+        courrentItemTag.forEach(function (tagItem) {
+          console.log("currenttag", tagItem);
+          var ProdName = tagItem.value.slice(13);
+          if (el.dataset.color == ProdName) {
+            var ProductRemoveindex = _this.currentRspo.products.indexOf(
+              courrentItem
+            );
+            console.log(ProductRemoveindex);
+            if (ProductRemoveindex > -1) {
+              _this.currentRspo.products.splice(ProductRemoveindex, 1);
+              i = -1;
+            }
+          }
+        });
+      }
+
+      colorObj.products = this.currentRspo.products;
+      collections.dataCollection(colorObj);
+     
+    }
+    // this._previousColor = el.dataset;
+  },
+
   brandColorFilter: function (el, ev) {
-    // var _this = this;
+    var _this = this;
+    var ValidProductList = [];
+    const obj = {};
     if (el.dataset.color) {
       this._brand = 0;
       if (this.colorCount >= 1) {
@@ -90,16 +314,17 @@ const filter = {
     }
     if (this.currentRspo && this._brand == 0) {
       var productsList = this.currentRspo.products;
+      this._brandColorPreviousL = productsList;
     } else {
-      productsList = this._resp.products;
-      // var addProduct = true;
+      productsList = this._brandColorPreviousL;
+      if (productsList == undefined) {
+        var newproductsList = this._resp.products;
+        productsList = this._resp.products;
+      }
     }
     this._brand++;
 
     console.log("change-event-el == ", el);
-    var productList = [];
-    const obj = {};
-    // var productsList = this._resp.products;
     var item = el.dataset;
     if (el.checked == true) {
       console.log(item, "item");
@@ -107,13 +332,13 @@ const filter = {
         var productTags = prodcut.tags;
         productTags.filter(function (tag) {
           var a = tag.value.slice(0, 12);
-          var item = el.dataset;
-          var key = Object.keys(item);
-          if (key == "brand") {
+          item = el.dataset;
+          _this._key = Object.keys(item);
+          if (_this._key == "brand") {
             if (a == "filter-brand") {
               var x = `filter-brand-${item.brand}`;
               if (tag == x) {
-                productList.push(prodcut);
+                ValidProductList.push(prodcut);
               }
             }
           } else {
@@ -121,28 +346,40 @@ const filter = {
             if (a == "filter-color") {
               var x = `filter-color-${item.color}`;
               if (tag == x) {
-                productList.push(prodcut);
+                ValidProductList.push(prodcut);
               }
             }
           }
         });
       });
       // if (addProduct == true) {
+      // this._key == "brand"
       if (this.currentRspo && this._brand > 1) {
         this.currentRspo.products.forEach(function (item) {
-          productList.push(item);
+          ValidProductList.push(item);
         });
       }
-      obj.products = productList;
+      obj.products = ValidProductList;
       console.log("obj", obj);
       collections.dataCollection(obj);
       this.currentRspo = obj;
-      productList = [];
+      ValidProductList = [];
       console.log("this.currentRspo", this.currentRspo);
       // }
     } else {
       var _this = this;
-      this.currentRspo.products.forEach(function (courrentItem) {
+      if (this._brandColorPreviousL) {
+        this.currentRspo.products = this._brandColorPreviousL;
+      }
+
+      if (newproductsList) {
+        obj.products = newproductsList;
+        collections.dataCollection(obj);
+      }
+
+      // this.currentRspo.products.forEach(function (courrentItem) {
+      for (var i = 0; i < this.currentRspo.products.length; i++) {
+        var courrentItem = this.currentRspo.products[i];
         var courrentItemTag = courrentItem.tags;
         courrentItemTag.forEach(function (tagItem) {
           console.log("currenttag", tagItem);
@@ -154,6 +391,7 @@ const filter = {
               );
               if (ProductRemoveindex > -1) {
                 _this.currentRspo.products.splice(ProductRemoveindex, 1);
+                i = -1;
               }
             }
           } else {
@@ -161,13 +399,14 @@ const filter = {
               var ProductRemoveindex = _this.currentRspo.products.indexOf(
                 courrentItem
               );
-              if (ProductRemoveindex > -1) {
-                _this.currentRspo.products.splice(ProductRemoveindex, 1);
-              }
+              // if (ProductRemoveindex > -1) {
+              //   _this.currentRspo.products.splice(ProductRemoveindex, 1);
+              //   i = -1;
+              // }
             }
           }
         });
-      });
+      }
       obj.products = this.currentRspo.products;
       collections.dataCollection(obj);
     }
@@ -175,13 +414,18 @@ const filter = {
   priceFilter: function (el, ev) {
     if (this.currentRspo && this._count == 0) {
       var productsList = this.currentRspo.products;
+      this._previousList = productsList;
     } else {
-      productsList = this._resp.products;
+      productsList = this._previousList;
+      if (productsList == undefined) {
+        productsList = this._resp.products;
+      }
     }
     this._count++;
     console.log("change-event-el == ", el);
     var validProduct = [];
     var priceObj = {};
+    // var n = [];
     var item = el.dataset;
     if (el.checked == true) {
       // var productsList = this._resp.productsList;
@@ -201,34 +445,43 @@ const filter = {
           validProduct.push(item);
         });
       }
+
       priceObj.products = validProduct;
       console.log("priceObj", priceObj);
       collections.dataCollection(priceObj);
       this.currentRspo = priceObj;
       validProduct = [];
       console.log("this.currentRspo", this.currentRspo);
-    } 
-    // else {
-    //   //
-    //   var _this = this;
-    //   this.currentRspo.products.forEach(function (courrentItem) {
-    //     var courrentItemTag = courrentItem.tags;
-    //     courrentItemTag.forEach(function (tagItem) {
-    //       console.log("currenttag", tagItem);
-    //       var ProdName = tagItem.value.slice(13);
-    //       if (el.dataset.price == ProdName) {
-    //         var ProductRemoveindex = _this.currentRspo.products.indexOf(
-    //           courrentItem
-    //         );
-    //         if (ProductRemoveindex > -1) {
-    //           _this.currentRspo.products.splice(ProductRemoveindex, 1);
-    //         }
-    //       }
-    //     });
-    //   });
-    //   obj.products = this.currentRspo.products;
-    //   collections.dataCollection(obj);
-    // } 
+    } else {
+      //
+      var a = [];
+      var _this = this;
+      if (this._previousList == undefined) {
+        this._previousList = productsList;
+      }
+      this._previousList.forEach(function (courrentItem) {
+        var courrentItemPrice = courrentItem.variants[0].price;
+        if (
+          courrentItemPrice <= Number(el.dataset.max) &&
+          courrentItemPrice >= Number(el.dataset.min)
+        ) {
+          // a.push(courrentItem);
+          var ProductRemoveprice = _this.currentRspo.products.indexOf(
+            courrentItem
+          );
+          if (ProductRemoveprice > -1) {
+            _this.currentRspo.products.splice(ProductRemoveprice, 1);
+          }
+        }
+      });
+      if (this.currentRspo.products.length == 0) {
+        priceObj.products = this._previousList;
+      } else {
+        priceObj.products = this.currentRspo.products;
+      }
+      // this.currentRspo.products = priceObj.products;
+      collections.dataCollection(priceObj);
+    }
   },
 };
 

@@ -82,8 +82,12 @@ const filter = {
   radioFilter: function (el, ev) {
     if (this.currentRspo) {
       var productsList = this.currentRspo.products;
+      this._radioPreviousL = productsList;
     } else {
-      productsList = this._resp.products;
+      productsList = this._radioPreviousL;
+      if (productsList == undefined) {
+        productsList = this._resp.products;
+      }
     }
     var filterProductList = [];
     var genderProductObj = {};
@@ -125,7 +129,6 @@ const filter = {
         productsList = this._resp.products;
       }
     }
-
     this._brand++;
     console.log("change-event-el == ", el);
     var item = el.dataset;
@@ -136,16 +139,12 @@ const filter = {
         var productTags = prodcut.tags;
         productTags.filter(function (tag) {
           var a = tag.value.slice(0, 12);
-          // item = el.dataset;
-          // _this._key = Object.keys(item);
-          // if (_this._key == "brand") {
           if (a == "filter-brand") {
             var x = `filter-brand-${item.brand}`;
             if (tag == x) {
               brandValidproductList.push(prodcut);
             }
           }
-          // }
         });
       });
       // this._brand > 1
@@ -238,12 +237,6 @@ const filter = {
           }
         });
       });
-      // if (addProduct == true) {
-      // this._key == "brand"
-      // this._color > 0
-      // if(this._previousColor == undefined){
-      //   this._previousColor = el.dataset;
-      // }
       if (this.currentRspo && this.isColorCal > 1) {
         this.currentRspo.products.forEach(function (item) {
           colorvalidProductList.push(item);
@@ -270,7 +263,6 @@ const filter = {
         this.currentRspo.products =  this._ColorPreviousL;
         colorObj.products =  this._ColorPreviousL;
         collections.dataCollection(colorObj);
-        // this._previousColor = undefined;
         return;
       }
 
@@ -476,6 +468,7 @@ const filter = {
       });
       if (this.currentRspo.products.length == 0) {
         priceObj.products = this._previousList;
+        this.currentRspo = undefined;
       } else {
         priceObj.products = this.currentRspo.products;
       }

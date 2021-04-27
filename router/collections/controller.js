@@ -194,7 +194,7 @@ const collections = {
       // console.log("price",price)
     }
     var maxprice = Math.max(...ProductPrice);
-    var result = this.priceDivision(maxprice, 500);
+    var result = this.priceDivision(maxprice, 1000);
     console.log("result==", result);
     ProductPriceObj["price"] = result;
     // ProductPriceObj.price.push(result);
@@ -219,7 +219,7 @@ const collections = {
   priceDivision: function (maxprice, limit) {
     var priceDivisionArray = [];
     var priceList = [];
-    var loopLength = maxprice / limit;
+    var loopLength =Math.ceil(maxprice / limit);
     for (var i = 0; i <= loopLength; i++) {
       var noDivisoin = i * limit;
       priceDivisionArray.push(noDivisoin);

@@ -27,7 +27,7 @@ const products = {
                     <span class="one-line-discripton">{{description}}</span>
                 </div>
                 <div class="product-details">
-                    <div class="product-price">Rs.{{variants.0.price}}<span class="real-cost">Rs. 2199</span><span class="discount-off">(60% OFF)</span></div>
+                    <div class="product-price">Rs.{{variants.0.price}}<span class="real-cost">Rs. {{variants.0.compareAtPrice}}</span><span class="discount-off">(60% OFF)</span></div>
                     <span class="about-tax">inclusive of all taxes</span>
                     <span class="size">SELECT SIZE <i>SIZE CHART</i></span>
                     <div class="size-options">

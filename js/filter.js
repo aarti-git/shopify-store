@@ -9,7 +9,11 @@ const filter = {
     this._color = 0;
     this.isColorCal = 0;
     this.isbrandCal =0;
+    this.previous =[];
+    this._x = [];
+    this.x = true;
     this.filterEvents();
+    this.currentRspo= resp;
   },
   filterEvents: function () {
     const _this = this;
@@ -20,7 +24,7 @@ const filter = {
     radioFilterInputs.forEach(function (item) {
       item.addEventListener("change", function (event) {
         _this.radioFilter(this, event);
-        _this.multipleFilter();
+        
       });
     });
 
@@ -31,7 +35,7 @@ const filter = {
     //   priceInputs.forEach(function (item) {
     //     item.addEventListener("change", function (event) {
     //       _this.brandColorFilter(this, event);
-    //       _this.multipleFilter();
+    //       
     //     });
     //   });
     // });
@@ -43,7 +47,6 @@ const filter = {
     brandInputs.forEach(function (item) {
       item.addEventListener("change", function (event) {
         _this.barndFilter(this, event);
-        _this.multipleFilter();
       });
     });
 
@@ -54,7 +57,6 @@ const filter = {
     colorInputs.forEach(function (item) {
       item.addEventListener("change", function (event) {
         _this.ColorFilter(this, event);
-        _this.multipleFilter();
       });
     });
 
@@ -65,20 +67,19 @@ const filter = {
     priceInputs.forEach(function (item) {
       item.addEventListener("change", function (event) {
         _this.priceFilter(this, event);
-        // _this.multipleFilter();
       });
     });
   },
 
-  multipleFilter: function () {
-    var filterParent = this._view.querySelector(".Product-filter-weapper");
-    var inputs = filterParent.querySelectorAll("input");
-    inputs.forEach(function (item) {
-      if (item.checked == true) {
-        console.log("multipleFilter-item ==", item.dataset);
-      }
-    });
-  },
+  // multipleFilter: function () {
+  //   var filterParent = this._view.querySelector(".Product-filter-weapper");
+  //   var inputs = filterParent.querySelectorAll("input");
+  //   inputs.forEach(function (item) {
+  //     if (item.checked == true) {
+  //       console.log("multipleFilter-item ==", item.dataset);
+  //     }
+  //   });
+  // },
   radioFilter: function (el, ev) {
     if (this.currentRspo) {
       var productsList = this.currentRspo.products;
@@ -116,16 +117,12 @@ const filter = {
     var _this = this;
     var brandValidproductList = [];
     const barndObj = {};
-    // if(!el.checked){
-    //   this._brand = 0;
-    // }
     if (this.currentRspo && this._brand == 0) {
       var productsList = this.currentRspo.products;
       this._brandPreviousL = productsList;
     } else {
       productsList = this._brandPreviousL;
       if (productsList == undefined) {
-        // var newproductsList = this._resp.products;
         productsList = this._resp.products;
       }
     }
@@ -203,12 +200,21 @@ const filter = {
     var _this = this;
     var colorvalidProductList = [];
     const colorObj = {};
-    // if(!el.checked){
-    //   this._color = 0;
-    // }
+    if(!el.checked && this.isColorCal !== 1){
+      this._color = 0;
+      // var x = true;
+    }
     if (this.currentRspo && this._color == 0) {
       var productsList = this.currentRspo.products;
       this._ColorPreviousL = productsList;
+        if(this.x == true){
+        this.currentRspo.products.forEach(function(v){
+          _this.previous.push(v);
+        })
+        console.log(" _this.previous", this.previous)
+        this.x = false;
+      }
+      
     } else {
       productsList = this._ColorPreviousL;
       if (productsList == undefined) {
@@ -219,7 +225,6 @@ const filter = {
     this._color++;
     if (el.checked == true) {
       this.isColorCal++
-      // console.log(item, "item");
       productsList.forEach(function (prodcut) {
         var productTags = prodcut.tags;
         productTags.filter(function (tag) {
@@ -227,7 +232,6 @@ const filter = {
           var item = el.dataset;
           _this._key = Object.keys(item);
           if (_this._key == "color") {
-            // item = el.dataset;
             if (a == "filter-color") {
               var x = `filter-color-${item.color}`;
               if (tag == x) {
@@ -243,25 +247,31 @@ const filter = {
         });
       }
       colorObj.products = colorvalidProductList;
-      console.log("colorObj", colorObj);
       collections.dataCollection(colorObj);
       this.currentRspo = colorObj;
       colorvalidProductList = [];
-      console.log("this.currentRspo", this.currentRspo);
-      // }
     } else {
       this.isColorCal--;
       var _this = this;
-      if (this._ColorPreviousL) {
-        this.currentRspo.products = this._ColorPreviousL;
-      }
+      // if (this._ColorPreviousL) {
+      //   this.currentRspo.products = this._ColorPreviousL;
+      // }
 
       if(this.isColorCal == 0 && this.currentRspo){
-        if(this._ColorPreviousL == undefined){
-          this._ColorPreviousL = this._resp.products;
+        if( this.currentRspo == undefined){
+          colorObj.products =  this._resp.products;;
+          this.currentRspo.products = this._resp.products; ;
+        }else{
+          if(this.previous.length == 0 ){
+            this.previous = this._resp.products;
+          }
+          this.currentRspo.products = this.previous;
+          console.log("this.currentRspo.products=", this.currentRspo.products)
+          colorObj.products =  this.previous;
         }
-        this.currentRspo.products =  this._ColorPreviousL;
-        colorObj.products =  this._ColorPreviousL;
+        console.log("previous", this.previous)
+        // this.currentRspo.products =   this.previous;
+        // colorObj.products =  this.previous;
         collections.dataCollection(colorObj);
         return;
       }
@@ -271,16 +281,18 @@ const filter = {
         var courrentItem = this.currentRspo.products[i];
         var courrentItemTag = courrentItem.tags;
         courrentItemTag.forEach(function (tagItem) {
-          console.log("currenttag", tagItem);
+          // console.log("currenttag", tagItem);
           var ProdName = tagItem.value.slice(13);
           if (el.dataset.color == ProdName) {
             var ProductRemoveindex = _this.currentRspo.products.indexOf(
               courrentItem
             );
-            console.log(ProductRemoveindex);
+            // console.log(ProductRemoveindex);
             if (ProductRemoveindex > -1) {
               _this.currentRspo.products.splice(ProductRemoveindex, 1);
               i = -1;
+              console.log("c imp =",_this.currentRspo.products)
+              console.log("p imp =",_this._ColorPreviousL)
             }
           }
         });
@@ -479,3 +491,102 @@ const filter = {
 };
 
 export default filter;
+
+
+// var _this = this;
+//     var colorvalidProductList = [];
+//     const colorObj = {};
+//     if(!el.checked && this.isColorCal !== 1){
+//       this._color = 0;
+//       var x = true;
+//     }
+//     if (this.currentRspo && this._color == 0) {
+//       var productsList = this.currentRspo.products;
+//       if(x == true){
+//         this._ColorPreviousL = productsList;
+//         // this._save = productsList;
+//         x = false;
+//       }
+      
+//     } else {
+//       productsList = this._ColorPreviousL;
+//       if (productsList == undefined) {
+//         productsList = this._resp.products;
+//       }
+//     }
+
+//     this._color++;
+//     if (el.checked == true) {
+//       this.isColorCal++
+//       // console.log(item, "item");
+//       productsList.forEach(function (prodcut) {
+//         var productTags = prodcut.tags;
+//         productTags.filter(function (tag) {
+//           var a = tag.value.slice(0, 12);
+//           var item = el.dataset;
+//           _this._key = Object.keys(item);
+//           if (_this._key == "color") {
+//             // item = el.dataset;
+//             if (a == "filter-color") {
+//               var x = `filter-color-${item.color}`;
+//               if (tag == x) {
+//                 colorvalidProductList.push(prodcut);
+//               }
+//             }
+//           }
+//         });
+//       });
+//       if (this.currentRspo && this.isColorCal > 1) {
+//         this.currentRspo.products.forEach(function (item) {
+//           colorvalidProductList.push(item);
+//         });
+//       }
+//       colorObj.products = colorvalidProductList;
+//       console.log("colorObj", colorObj);
+//       collections.dataCollection(colorObj);
+//       this.currentRspo = colorObj;
+//       colorvalidProductList = [];
+//       console.log("this.currentRspo", this.currentRspo);
+//       // }
+//     } else {
+//       this.isColorCal--;
+//       var _this = this;
+//       if (this._ColorPreviousL) {
+//         this.currentRspo.products = this._ColorPreviousL;
+//       }
+
+//       if(this.isColorCal == 0 && this.currentRspo){
+//         if(this._ColorPreviousL == undefined){
+//           this._ColorPreviousL = this._resp.products;
+//         }
+//         this.currentRspo.products =  this._ColorPreviousL;
+//         colorObj.products =  this._ColorPreviousL;
+//         collections.dataCollection(colorObj);
+//         return;
+//       }
+
+//       // this.currentRspo.products.forEach(function (courrentItem) {
+//       for (var i = 0; i < this.currentRspo.products.length; i++) {
+//         var courrentItem = this.currentRspo.products[i];
+//         var courrentItemTag = courrentItem.tags;
+//         courrentItemTag.forEach(function (tagItem) {
+//           console.log("currenttag", tagItem);
+//           var ProdName = tagItem.value.slice(13);
+//           if (el.dataset.color == ProdName) {
+//             var ProductRemoveindex = _this.currentRspo.products.indexOf(
+//               courrentItem
+//             );
+//             console.log(ProductRemoveindex);
+//             if (ProductRemoveindex > -1) {
+//               _this.currentRspo.products.splice(ProductRemoveindex, 1);
+//               i = -1;
+//             }
+//           }
+//         });
+//       }
+
+//       colorObj.products = this.currentRspo.products;
+//       collections.dataCollection(colorObj);
+     
+//     }
+//     // this._previousColor = el.dataset;

@@ -24,13 +24,6 @@ module.exports = {
       // "@img": path.resolve(__dirname, "./img"),
     },
   },
-
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // },
-
   // loader
   module: {
     rules: [
